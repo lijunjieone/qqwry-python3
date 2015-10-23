@@ -6,10 +6,13 @@
 #
 # 用法：
 # from cz88update import updateQQwry
-# result = updateQQwry(filename)  #filename为要保存的文件名
+# result = updateQQwry(filename)
+# 参数filename可以是要保存的文件名
+# 参数filename也可以是None，这时直接返回文件内容，返回一个bytes对象
 #
 # updateQQwry函数返回值
 # 正整数：表示已成功更新，为qqwry.dat的字节数
+# 一个bytes对象：表示已成功更新，返回的是文件的内容
 # -1：下载copywrite.rar出错
 # -2：解析copywrite.rar出错
 # -3：下载qqwry.rar出错
@@ -84,12 +87,17 @@ def updateQQwry(filename):
     except:
         return -5
 
-    # save to file
-    try:
-        with open(filename, 'wb') as f:
-            f.write(data)
-        return len(data)
-    except:
+    if filename == None:
+        return data
+    elif type(filename) == str:
+        # save to file
+        try:
+            with open(filename, 'wb') as f:
+                f.write(data)
+            return len(data)
+        except:
+            return -6
+    else:
         return -6
 
 if __name__ == '__main__':

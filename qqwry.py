@@ -1,28 +1,31 @@
 # coding=utf-8
 #
 # for Python 3.0+
-# 来自 https://github.com/animalize/qqwry-python3
-# 版本：2015-09-06a
+# 来自： https://github.com/animalize/qqwry-python3
+# 版本：2015-10-23
 #
 # 用法：
 # from qqwry import QQwry
-# q = QQwry()
-# q.load_file(filename, loadindex=False)
-# q.lookup('8.8.8.8')
+# q = QQwry()  # 生成对象
+# q.load_file(filename, loadindex=False) # 加载qqwry.dat文件
+# q.lookup('8.8.8.8')  # 查询IP地址
 #
 # q.load_file(filename, loadindex=False)函数:
-# 参数loadindex为False时，不加载索引，进程耗内存12.6MB，查找稍慢
-# 参数loadindex为True时，加载索引，进程耗内存17.7MB，查找稍快
-# 后者比前者查找更快（3.9万次/秒，10.2万次/秒），但加载文件稍慢
+# 参数filename可以是qqwry.dat的文件名，也可以为bytes类型的文件内容
+# 参数loadindex为False时，把qqwry.dat整体读入内存，不额外加载索引
+# 参数loadindex为True时，把qqwry.dat整体读入内存，额外加载索引
+# 后者比前者查找更快（3.9万次/秒，10.2万次/秒）
+# 后者比前者占用更多内存（测试进程的内存分别为12.6MB，17.7MB）
+# 后者比前者加载稍慢
 # 以上是在i3 3.6GHz, Win10, Python 3.5.0rc2 64bit，qqwry.dat 8.85MB时的数据
-# 成功返回True，失败返回False
+# 函数成功返回True，失败返回False
 #
 # q.lookup('8.8.8.8')函数:
-# 没有找到结果返回一个None
 # 找到则返回一个含有两个字符串的元组：('国家', '省份')
+# 没有找到结果返回一个None
 #
 # q.get_lastone()函数:
-# 返回最后一条数据，最后一条通常为数据版本号
+# 返回最后一条数据，最后一条通常为数据的版本号
 # 没有数据则返回None
 #
 # q.is_loaded()函数:
@@ -64,17 +67,25 @@ class QQwry:
     def load_file(self, filename, loadindex=False):
         self.clear()
         
-        # read file
-        try:
-            with open(filename, 'br') as f:
-                self.data = buffer = f.read()
-        except Exception as e:
-            print('打开、读取文件时出错：', e)
-            return False
-        
-        if self.data == None:
-            print('%s load failed' % filename)
-            self.clear()
+        if type(filename) == bytes:
+            self.data = buffer = filename
+            filename = 'memory data'
+        elif type(filename) == str:
+            # read file
+            try:
+                with open(filename, 'br') as f:
+                    self.data = buffer = f.read()
+            except Exception as e:
+                print('打开、读取文件时出错：', e)
+                self.clean()
+                return False
+            
+            if self.data == None:
+                print('%s load failed' % filename)
+                self.clear()
+                return False
+        else:
+            self.clean()
             return False
         
         if len(buffer) < 8:
@@ -190,10 +201,10 @@ class QQwry:
         return None
     
     def __index_search(self, ip):
-        posi = bisect.bisect_right(self.idx1, ip)
+        posi = bisect.bisect_right(self.idx1, ip) - 1
         
-        if posi > 0 and self.idx1[posi-1] <= ip <= self.idx2[posi-1]:
-            return self.__get_addr(self.idxo[posi-1])
+        if posi >= 0 and self.idx1[posi] <= ip <= self.idx2[posi]:
+            return self.__get_addr(self.idxo[posi])
         else:
             return None
         
