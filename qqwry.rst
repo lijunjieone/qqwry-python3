@@ -15,6 +15,7 @@
 .. code-block:: python
 
     from qqwry import QQwry
+    
     q = QQwry()
     q.load_file('qqwry.dat', loadindex=False)
     q.lookup('8.8.8.8')
@@ -71,6 +72,7 @@ q对象是否已加载数据，返回True或False
 .. code-block:: python
 
     from qqwry import updateQQwry
+    
     result = updateQQwry(filename)
 
 ﻿| 参数filename可以是要保存的文件名（str类型）；
