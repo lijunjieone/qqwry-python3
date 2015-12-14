@@ -1,6 +1,10 @@
 用于在qqwry.dat里查找IP地址归属地。  
 另提供一个从纯真网络更新qqwry.dat的小工具。
 
+本工具已上传到pypi：https://pypi.python.org/pypi/qqwry-py3
+Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
+    pip install qqwry-py3
+
 特点：
 
 1. for Python 3.0+。
@@ -10,16 +14,13 @@
 5. 经过较严格测试。
 6. 提供一个从纯真网络(cz88.net)更新qqwry.dat的小工具，用法见本文最后一部分。
 
-
 用法
 ============
-
     from qqwry import QQwry
     
     q = QQwry()
     q.load_file('qqwry.dat', loadindex=False)
     q.lookup('8.8.8.8')
-
 
 解释q.load_file(filename, loadindex=False)函数
 --------------
@@ -43,29 +44,24 @@
 
 （以上是在i3 3.6GHz, Win10, Python 3.5.0rc2 64bit，qqwry.dat 8.85MB时的数据）
 
-
 解释q.lookup('8.8.8.8')函数
 --------------
 ﻿找到则返回一个含有两个字符串的元组，如：('国家', '省份')  
 ﻿没有找到结果返回一个None
-
 
 解释q.get_lastone()函数
 --------------
 ﻿返回最后一条数据，最后一条通常为数据的版本号  
 ﻿没有数据则返回None
 
-
 解释q.is_loaded()函数
 --------------
 q对象是否已加载数据，返回True或False
-
 
 解释q.clear()函数
 --------------
 清空已加载的qqwry.dat  
 再次调用load_file时不必执行q.clear()
-
 
 从纯真网络(cz88.net)更新qqwry.dat的小工具
 ============
