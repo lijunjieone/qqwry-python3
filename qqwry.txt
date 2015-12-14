@@ -73,7 +73,7 @@ q对象是否已加载数据，返回True或False
 ﻿参数filename也可以是None，这时函数直接返回qqwry.dat的文件内容，一个bytes对象。
 
 ﻿﻿updateQQwry函数返回值：
-﻿正整数：表示已成功更新，为qqwry.dat的字节数。
+﻿正整数：表示已成功更新，是保存到磁盘的qqwry.dat的字节数。
 ﻿一个bytes对象：表示已成功更新，返回的是文件的内容。
 
 ﻿﻿如果返回负数，表示更新失败：
