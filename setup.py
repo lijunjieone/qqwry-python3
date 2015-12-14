@@ -8,9 +8,9 @@ def read_file(path):
 
 setup(
     name='qqwry-py3',
-    version='1.0.2',
+    version='1.0.3',
     description='Lookup address of IP in qqwry.dat, for Python 3.0+',
-    long_description=read_file('qqwry.rst'),
+    long_description=read_file('qqwry.txt'),
     author='animalize',
     author_email='animalize81@hotmail.com',
     url='https://github.com/animalize/qqwry-python3',
