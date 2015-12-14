@@ -5,6 +5,8 @@
 Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
     pip install qqwry-py3
 
+关于本工具的博客文章：http://www.cnblogs.com/animalize/p/4704402.html
+
 特点：
 
 1. for Python 3.0+。
