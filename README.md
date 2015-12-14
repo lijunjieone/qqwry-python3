@@ -1,8 +1,8 @@
 用于在qqwry.dat里查找IP地址归属地。  
 另提供一个从纯真网络更新qqwry.dat的小工具。
 
-本工具已上传到pypi：https://pypi.python.org/pypi/qqwry-py3
-Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
+本工具已上传到pypi：https://pypi.python.org/pypi/qqwry-py3  
+Python 3.4及以上版本自带了pip工具，执行此命令既可安装：  
     pip install qqwry-py3
 
 关于本工具的博客文章：http://www.cnblogs.com/animalize/p/4704402.html
