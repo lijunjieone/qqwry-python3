@@ -12,10 +12,10 @@
 
 用法
 ============
-    from qqwry import QQwry
-    q = QQwry()
-    q.load_file('qqwry.dat', loadindex=False)
-    q.lookup('8.8.8.8')
+from qqwry import QQwry
+q = QQwry()
+q.load_file('qqwry.dat', loadindex=False)
+result = q.lookup('8.8.8.8')
 
 
 解释q.load_file(filename, loadindex=False)函数
@@ -44,7 +44,7 @@
 解释q.lookup('8.8.8.8')函数
 --------------
 ﻿找到则返回一个含有两个字符串的元组，如：('国家', '省份')
-﻿没有找到结果返回一个None
+﻿没有找到结果，则返回一个None
 
 
 解释q.get_lastone()函数
@@ -66,14 +66,14 @@ q对象是否已加载数据，返回True或False
 
 从纯真网络(cz88.net)更新qqwry.dat的小工具
 ============
-    from qqwry import updateQQwry
-    result = updateQQwry(filename)
+from qqwry import updateQQwry
+result = updateQQwry(filename)
 
 ﻿参数filename可以是要保存的文件名（str类型）；
 ﻿参数filename也可以是None，这时函数直接返回qqwry.dat的文件内容，一个bytes对象。
 
 ﻿﻿updateQQwry函数返回值：
-﻿正整数：表示已成功更新，是保存到磁盘的qqwry.dat文件的字节数。
+﻿正整数：表示已成功更新，是保存到磁盘的文件字节数。
 ﻿一个bytes对象：表示已成功更新，返回的是文件的内容。
 
 ﻿﻿如果返回负数，表示更新失败：

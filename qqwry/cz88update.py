@@ -2,23 +2,26 @@
 #
 # 用于从纯真网络(cz88.net)更新qqwry.dat
 # for Python 3.0+
-# 来自 https://github.com/animalize/qqwry-python3
+# 来自 https://pypi.python.org/pypi/qqwry-py3
 #
 # 用法：
 # from cz88update import updateQQwry
 # result = updateQQwry(filename)
-# 参数filename可以是要保存的文件名
-# 参数filename也可以是None，这时直接返回文件内容，返回一个bytes对象
-#
-# updateQQwry函数返回值
-# 正整数：表示已成功更新，为qqwry.dat的字节数
-# 一个bytes对象：表示已成功更新，返回的是文件的内容
-# -1：下载copywrite.rar出错
-# -2：解析copywrite.rar出错
-# -3：下载qqwry.rar出错
-# -4：qqwry.rar文件大小不符合copywrite.rar的数据
-# -5：解压缩qqwry.rar出错
-# -6：保存到最终文件时出错
+# 
+# ﻿参数filename可以是要保存的文件名（str类型）；
+# ﻿参数filename也可以是None，这时函数直接返回qqwry.dat的文件内容，一个bytes对象。
+# 
+# ﻿﻿updateQQwry函数返回值：
+# ﻿正整数：表示已成功更新，是保存到磁盘的文件字节数。
+# ﻿一个bytes对象：表示已成功更新，返回的是文件的内容。
+# 
+# ﻿﻿如果返回负数，表示更新失败：
+# ﻿-1：下载copywrite.rar时出错
+# ﻿-2：解析copywrite.rar时出错
+# ﻿-3：下载qqwry.rar时出错
+# ﻿-4：qqwry.rar文件大小不符合copywrite.rar的数据
+# ﻿-5：解压缩qqwry.rar时出错
+# ﻿-6：保存到最终文件时出错
 
 import struct
 import urllib.request

@@ -1,39 +1,56 @@
 # coding=utf-8
 #
 # for Python 3.0+
-# 来自： https://github.com/animalize/qqwry-python3
-# 版本：2015-10-23
+# 来自 https://pypi.python.org/pypi/qqwry-py3
+# 版本：2015-12-16
 #
-# 用法：
+# 用法
+# ============
 # from qqwry import QQwry
-# q = QQwry()  # 生成对象
-# q.load_file(filename, loadindex=False) # 加载qqwry.dat文件
-# q.lookup('8.8.8.8')  # 查询IP地址
-#
-# q.load_file(filename, loadindex=False)函数:
-# 参数filename可以是qqwry.dat的文件名，也可以为bytes类型的文件内容
-# 参数loadindex为False时，把qqwry.dat整体读入内存，不额外加载索引
-# 参数loadindex为True时，把qqwry.dat整体读入内存，额外加载索引
-# 后者比前者查找更快（3.9万次/秒，10.2万次/秒）
-# 后者比前者占用更多内存（测试进程的内存分别为12.6MB，17.7MB）
-# 后者比前者加载稍慢
-# 以上是在i3 3.6GHz, Win10, Python 3.5.0rc2 64bit，qqwry.dat 8.85MB时的数据
-# 函数成功返回True，失败返回False
-#
-# q.lookup('8.8.8.8')函数:
-# 找到则返回一个含有两个字符串的元组：('国家', '省份')
-# 没有找到结果返回一个None
-#
-# q.get_lastone()函数:
-# 返回最后一条数据，最后一条通常为数据的版本号
-# 没有数据则返回None
-#
-# q.is_loaded()函数:
-# 是否已加载数据，返回True或False
-#
-# q.clear()函数:
-# 清空已加载的qqwry.dat
-# 再次调用load_file时不必执行q.clear()
+# q = QQwry()
+# q.load_file('qqwry.dat', loadindex=False)
+# result = q.lookup('8.8.8.8')
+# 
+# 解释q.load_file(filename, loadindex=False)函数
+# --------------
+# 加载qqwry.dat文件。成功返回True，失败返回False。
+# 
+# 参数filename可以是qqwry.dat的文件名（str类型），也可以是bytes类型的文件内容。
+# 
+# 当参数loadindex=False时（默认）：
+# ﻿程序行为：把整个文件读入内存，从中搜索。
+# ﻿加载速度：很快
+# ﻿进程内存：较少，12.6 MB
+# ﻿查询速度：较慢，3.9 万次/秒
+# ﻿使用建议：适合桌面程序、树莓派等低负载应用。
+# 
+# ﻿﻿当参数loadindex=True时：
+# ﻿程序行为：把整个文件读入内存。额外加载索引，把索引读入更快的数据结构。
+# ﻿加载速度：慢，因为要额外加载索引
+# ﻿进程内存：较多，17.7 MB
+# ﻿查询速度：较快，10.2 万次/秒
+# ﻿使用建议：适合高负载服务器。
+# 
+# ﻿﻿（以上是在i3 3.6GHz, Win10, Python 3.5.0rc2 64bit，qqwry.dat 8.85MB时的数据）
+# 
+# 解释q.lookup('8.8.8.8')函数
+# --------------
+# ﻿找到则返回一个含有两个字符串的元组，如：('国家', '省份')
+# ﻿没有找到结果，则返回一个None
+# 
+# 解释q.get_lastone()函数
+# --------------
+# ﻿返回最后一条数据，最后一条通常为数据的版本号
+# ﻿没有数据则返回None
+# 
+# 解释q.is_loaded()函数
+# --------------
+# q对象是否已加载数据，返回True或False
+# 
+# 解释q.clear()函数
+# --------------
+# ﻿清空已加载的qqwry.dat
+# ﻿再次调用load_file时不必执行q.clear()
 
 import array
 import bisect
@@ -197,8 +214,8 @@ class QQwry:
         
         if ip_begin <= ip <= ip_end:
             return self.__get_addr(offset+4)
-        
-        return None
+        else:
+            return None
     
     def __index_search(self, ip):
         posi = bisect.bisect_right(self.idx1, ip) - 1

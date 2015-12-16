@@ -6,10 +6,7 @@ Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
 
     pip install qqwry-py3
 
-关于本工具的博客文章：http://www.cnblogs.com/animalize/p/4704402.html
-
-特点：
-
+特点：  
 1. for Python 3.0+。
 2. 提供两套实现供选择。有一个查找速度更快，但加载稍慢一点、占用内存稍多一点。
 3. 在i3 3.6GHz，Python 3.5上查询速度达10.2万次/秒。
@@ -23,7 +20,7 @@ Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
     
     q = QQwry()
     q.load_file('qqwry.dat', loadindex=False)
-    q.lookup('8.8.8.8')
+    result = q.lookup('8.8.8.8')
 
 解释q.load_file(filename, loadindex=False)函数
 --------------
@@ -49,8 +46,8 @@ Python 3.4及以上版本自带了pip工具，执行此命令既可安装：
 
 解释q.lookup('8.8.8.8')函数
 --------------
-﻿找到则返回一个含有两个字符串的元组，如：('国家', '省份')  
-﻿没有找到结果返回一个None
+﻿﻿找到则返回一个含有两个字符串的元组，如：('国家', '省份')  
+﻿没有找到结果，则返回一个None
 
 解释q.get_lastone()函数
 --------------
@@ -76,7 +73,7 @@ q对象是否已加载数据，返回True或False
 参数filename也可以是None，这时函数直接返回qqwry.dat的文件内容，一个bytes对象。  
 
 updateQQwry函数返回值：  
-正整数：表示已成功更新，是保存到磁盘的qqwry.dat文件的字节数。  
+正整数：表示已成功更新，是保存到磁盘的文件字节数。  
 一个bytes对象：表示已成功更新，返回的是文件的内容。  
 
 如果返回负数，表示更新失败：  
