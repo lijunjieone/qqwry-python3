@@ -8,14 +8,13 @@
 # from cz88update import updateQQwry
 # result = updateQQwry(filename)
 # 
-# ﻿参数filename可以是要保存的文件名（str类型）；
-# ﻿参数filename也可以是None，这时函数直接返回qqwry.dat的文件内容，一个bytes对象。
+# ﻿当参数filename是str类型时，表示要保存的文件名。
+# 成功后返回一个正整数，是文件的字节数；失败则返回一个负整数。
 # 
-# ﻿﻿updateQQwry函数返回值：
-# ﻿正整数：表示已成功更新，是保存到磁盘的文件字节数。
-# ﻿一个bytes对象：表示已成功更新，返回的是文件的内容。
+# ﻿当参数filename是None时，函数直接返回qqwry.dat的文件内容（一个bytes对象）。
+# 成功后返回一个bytes对象；失败则返回一个负整数。这里要判断一下返回值的类型是bytes还是int。
 # 
-# ﻿﻿如果返回负数，表示更新失败：
+# 负整数表示的错误：
 # ﻿-1：下载copywrite.rar时出错
 # ﻿-2：解析copywrite.rar时出错
 # ﻿-3：下载qqwry.rar时出错
@@ -26,7 +25,9 @@
 import struct
 import urllib.request
 import zlib
-    
+
+__all__ = ('updateQQwry',)
+
 def updateQQwry(filename):
     def get_fetcher():
         # no proxy
